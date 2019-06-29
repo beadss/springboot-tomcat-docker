@@ -4,6 +4,7 @@ plugins {
     id 'de.undercouch.download' version '3.4.3'
     id 'java'
     id 'idea'
+    id 'com.palantir.docker' version '0.22.1'
 }
 
 apply plugin: 'java'
@@ -42,4 +43,13 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+}
+
+apply plugin: 'com.palantir.docker'
+
+docker {
+    dependsOn bootWar
+    name "${project.group}/${bootWar.baseName}"
+    copySpec.from(tasks.bootWar.outputs.files.singleFile).into("dependency")
+    buildArgs(['JAR_FILE': "dependency/" + tasks.bootWar.outputs.files.singleFile.name])
 }
