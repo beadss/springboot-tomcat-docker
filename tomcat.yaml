@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: tomcat
-        image: beadss/springboot-tomcat-docker:2.0
+        image: beadss/springboot-tomcat-docker:1.1
         impagePullPolicy: Always
         ports:
         - containerPort: 80
